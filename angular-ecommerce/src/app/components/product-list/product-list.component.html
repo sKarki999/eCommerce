@@ -1,0 +1,18 @@
+<table class="table striped">
+    <thead class="thead-dark">
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Units In Stock</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products">
+        <td class="align-middle">
+            <img src="http://placehold.it/250x300" height="50"/>
+        </td>
+        <td class="align-middle">{{ product.name }}</td>
+        <td class="align-middle">{{ product.unitPrice | currency: 'USD'}} </td>
+        <td class="align-middle">{{ product.unitsInStock }}</td>
+    </tr>
+    </tbody>
+</table>

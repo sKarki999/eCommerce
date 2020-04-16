@@ -1,6 +1,6 @@
 <div class="main-content">
     <div class="section-content section-content-p30">
-        <h4> Category: {{ currentCategoryName }} </h4>
+        <h4 *ngIf="currentCategoryName"> Category: {{ currentCategoryName }} </h4>
             <div class="container-fluid">
                 <div class="row">
 
@@ -16,6 +16,10 @@
 
                     </div>
 
+                    <!-- Display a message if No product found -->
+                    <div *ngIf="products?.length == 0" class="alert alert-warning col-md-12" role="alert">
+                        No products Found.
+                    </div>
                 </div>
             </div>
     </div>

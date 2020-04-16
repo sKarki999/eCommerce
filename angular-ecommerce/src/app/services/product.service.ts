@@ -10,37 +10,49 @@ import { ProductCategory } from '../common/product-category';
 })
 export class ProductService {
 
-  private baseUrl = 'http://localhost:9090/api/products';
-  private categoryUrl = 'http://localhost:9090/api/product-category';
+    private baseUrl = 'http://localhost:9090/api/products';
+    private categoryUrl = 'http://localhost:9090/api/product-category';
 
-  constructor( private httpClient: HttpClient) { }
+    constructor( private httpClient: HttpClient) { }
 
 
-  /*
-  * Returns an Observable.
-  * map the JSON data from Spring Data Rest to product Array
-  */
-  getProductList(theCategoryId: number): Observable<Product[]> {
+    /*
+    * Returns an Observable.
+    * map the JSON data from Spring Data Rest to product Array
+    */
+    getProductList(theCategoryId: number): Observable<Product[]> {
 
-    // need to build url based on category id
-    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
+      // need to build url based on category id
+      const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
+      return this.getProducts(searchUrl);
 
+    }
+
+    /*
+    * Returns an Observable.
+    * map the JSON data from Spring Data Rest to productCategory Array
+    */
+  getProductCategories(): Observable<ProductCategory[]> {
+
+    return this.httpClient.get<GetResponseProductCategory>(this.categoryUrl).pipe(
+      map(response => response._embedded.productCategory)
+    );
+  }
+
+  searchProducts(theKeyword: string): Observable<Product[]> {
+
+    // need to build Url based on the keyword
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
+    return this.getProducts(searchUrl);
+}
+
+  
+  private getProducts(searchUrl: string): Observable<Product[]> {
     return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(
       map(response => response._embedded.products)
     );
-
   }
 
-  /*
-  * Returns an Observable.
-  * map the JSON data from Spring Data Rest to productCategory Array
-  */
- getProductCategories(): Observable<ProductCategory[]> {
-
-  return this.httpClient.get<GetResponseProductCategory>(this.categoryUrl).pipe(
-    map(response => response._embedded.productCategory)
-  );
-}
 
 }
 

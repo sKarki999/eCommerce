@@ -68,7 +68,8 @@ export class ProductListComponent implements OnInit {
     if(this.previousKeyword != theKeyword) {
       this.thePageNumber = 1;
     }
-
+     
+    //to keep track of the keyword
     this.previousKeyword = theKeyword;
 
     // logging to console
@@ -103,7 +104,7 @@ export class ProductListComponent implements OnInit {
     
     /*
     * check if we have different category id than previous
-    * Note: Angular will reuse a component if it is currently beng viewed
+    * Note: Angular will reuse a component if it is currently being viewed
     */
 
     /*

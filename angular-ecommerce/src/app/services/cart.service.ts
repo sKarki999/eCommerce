@@ -32,6 +32,7 @@ export class CartService {
   }
 
   if(alreadyExistsInCart) {
+    // increment the quantity
     existingCartItem.quantity++;
   }
   else {
